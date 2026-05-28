@@ -19,14 +19,20 @@ public class Book {
 
     private boolean isAvailable;
 
+    private Integer stock;
+
+    private String publisher;
+
     public Book() {}
 
-    public Book(String title, String author, double price, String genre, boolean isAvailable){
+    public Book(String title, String author, double price, String genre, boolean isAvailable, Integer stock, String publisher){
         this.title = title;
         this.author = author;
         this.price = price;
         this.genre = genre;
         this.isAvailable = isAvailable;
+        this.stock=stock;
+        this.publisher=publisher;
     }
 
     public String getTitle() {
@@ -62,5 +68,21 @@ public class Book {
     }
     public void setAvailable(boolean available) {
         isAvailable = available;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
     }
 }
