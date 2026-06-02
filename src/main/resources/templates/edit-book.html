@@ -1,29 +1,237 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Edit Book</title>
+  <meta charset="UTF-8">
+  <title>⚡ Edit Sigma Book ⚡</title>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Comic Sans MS, cursive;
+    }
+
+    body{
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      background:
+              linear-gradient(
+                      135deg,
+                      #ff00ff,
+                      #00ffff,
+                      #ffff00,
+                      #00ff00,
+                      #ff0000
+              );
+
+      background-size:400% 400%;
+      animation:bgMove 5s infinite alternate;
+      overflow:hidden;
+    }
+
+    @keyframes bgMove{
+      from{background-position:left;}
+      to{background-position:right;}
+    }
+
+    .container{
+      width:700px;
+      padding:40px;
+
+      background:rgba(255,255,255,0.15);
+      backdrop-filter:blur(15px);
+
+      border:8px dashed yellow;
+      border-radius:30px;
+
+      box-shadow:
+              0 0 20px hotpink,
+              0 0 40px cyan,
+              0 0 80px yellow;
+    }
+
+    h1{
+      text-align:center;
+      color:white;
+      font-size:3rem;
+      margin-bottom:30px;
+
+      text-shadow:
+              0 0 10px hotpink,
+              0 0 20px cyan,
+              0 0 40px yellow;
+
+      animation:wiggle 1s infinite alternate;
+    }
+
+    @keyframes wiggle{
+      from{transform:rotate(-2deg);}
+      to{transform:rotate(2deg);}
+    }
+
+    .field{
+      margin-bottom:20px;
+    }
+
+    label{
+      display:block;
+      margin-bottom:8px;
+      color:white;
+      font-size:1.3rem;
+      font-weight:bold;
+    }
+
+    input[type="text"]{
+      width:100%;
+      padding:15px;
+
+      border:none;
+      border-radius:15px;
+
+      font-size:1.1rem;
+
+      box-shadow:
+              0 0 10px cyan,
+              0 0 20px hotpink;
+    }
+
+    input[type="text"]:focus{
+      outline:none;
+
+      box-shadow:
+              0 0 20px yellow,
+              0 0 40px lime;
+    }
+
+    .checkbox-wrapper{
+      display:flex;
+      align-items:center;
+      gap:15px;
+      margin:20px 0;
+    }
+
+    input[type="checkbox"]{
+      width:30px;
+      height:30px;
+    }
+
+    .submit-btn{
+      width:100%;
+      padding:20px;
+
+      border:none;
+      border-radius:20px;
+
+      cursor:pointer;
+
+      font-size:1.5rem;
+      font-weight:bold;
+
+      background:
+              linear-gradient(
+                      90deg,
+                      hotpink,
+                      yellow,
+                      cyan
+              );
+
+      animation:bounce 1s infinite alternate;
+
+      box-shadow:
+              0 0 20px hotpink,
+              0 0 40px cyan;
+    }
+
+    @keyframes bounce{
+      from{
+        transform:translateY(0);
+      }
+      to{
+        transform:translateY(-8px);
+      }
+    }
+
+    .submit-btn:hover{
+      transform:scale(1.05);
+    }
+
+    .floating{
+      position:fixed;
+      font-size:50px;
+      animation:float 10s linear infinite;
+      opacity:0.7;
+    }
+
+    @keyframes float{
+      from{
+        transform:translateY(100vh) rotate(0deg);
+      }
+      to{
+        transform:translateY(-150px) rotate(720deg);
+      }
+    }
+
+  </style>
 </head>
 <body>
-<form th:action="@{/books/update/{id}(id=${book.id})}" th:object="${book}" th:method="post">
-  <input type="hidden" th:field="*{id}">
 
-  <label>Title</label>
-  <input type="text" th:field="*{title}">
+<div class="floating" style="left:5%">💀</div>
+<div class="floating" style="left:20%;animation-delay:1s">🔥</div>
+<div class="floating" style="left:35%;animation-delay:2s">🗿</div>
+<div class="floating" style="left:50%;animation-delay:3s">⚡</div>
+<div class="floating" style="left:65%;animation-delay:4s">🚀</div>
+<div class="floating" style="left:80%;animation-delay:5s">💯</div>
 
-  <label>Author</label>
-  <input type="text" th:field="*{author}">
+<div class="container">
 
-  <label>Genre</label>
-  <input type="text" th:field="*{genre}">
+  <h1>
+    ⚡ MODIFY SACRED BOOK LORE ⚡
+  </h1>
 
-  <label>Price</label>
-  <input type="text" th:field="*{price}">
+  <form
+          th:action="@{/books/update/{id}(id=${book.id})}"
+          th:object="${book}"
+          method="post">
 
-  <label>Available</label>
-  <input type="checkbox" th:fiels="*{available}">
+    <input type="hidden" th:field="*{id}">
 
-  <button type="submit">Save edit</button>
-</form>
+    <div class="field">
+      <label>📖 Sigma Lore Title</label>
+      <input type="text" th:field="*{title}">
+    </div>
+
+    <div class="field">
+      <label>🧠 Aura Author</label>
+      <input type="text" th:field="*{author}">
+    </div>
+
+    <div class="field">
+      <label>🎭 Ohio Classification</label>
+      <input type="text" th:field="*{genre}">
+    </div>
+
+    <div class="field">
+      <label>💸 Aura Value</label>
+      <input type="text" th:field="*{price}">
+    </div>
+
+    <div class="checkbox-wrapper">
+      <input type="checkbox" th:field="*{available}">
+      <label>🟢 Maintain W Rizz Stock</label>
+    </div>
+
+    <button class="submit-btn" type="submit">
+      ⚡ PATCH THE OHIO DATABASE ⚡
+    </button>
+
+  </form>
+
+</div>
+
 </body>
 </html>
