@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+</head>
+<body>
+
+
+        <table border="2px">
+        <tr>
+<!--            <th>S.N.</th>-->
+            <th>Title</th>
+            <th>Author</th>
+            <th>Genre</th>
+            <th>Price</th>
+            <th>In Stock</th>
+        </tr>
+        <tr th:each="book:${books}">
+<!--            <td th:text="${book.id}"></td>-->
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.author}"></td>
+            <td th:text="${book.genre}"></td>
+            <td th:text="${book.price}"></td>
+            <td th:text="${book.available?'yes':'no'}"></td>
+            <td>
+                <a th:href="@{/books/update/{id}(id=${book.id})}">
+                    Edit
+                </a>
+            </td>
+            <td>
+                <a th:href="@{/books/delete/{id}(id=${book.id})}">
+                    Delete
+                </a>
+            </td>
+        </tr>
+        </table>
+        <a th:href="@{/books/add}">Add new book</a>
+
+
+</body>
+</html>

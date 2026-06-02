@@ -20,6 +20,7 @@ public class BookService {
     //Convert to DTO
     public BookDTO mapToDTO(Book book) {
         return new BookDTO(
+                book.getId(),
                 book.getTitle(),
                 book.getAuthor(),
                 book.getGenre(),
@@ -52,11 +53,13 @@ public class BookService {
 
     public List<BookDTO> findAllBooks() {
         List<Book> listBooks = bookRepository.findAll();
+//        System.out.println(listBooks.get(0).getId());;
         List<BookDTO> bookDTOList = new ArrayList<>();
 
         for (Book book : listBooks) {
+//            System.out.println(book.getId());
             BookDTO bookDTO = mapToDTO(book);
-
+            System.out.println(bookDTO.getId());
             bookDTOList.add(bookDTO);
         }
         return bookDTOList;

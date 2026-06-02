@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add book</title>
+</head>
+<body>
+<!--<h1>Add Book</h1>-->
+
+<form th:action="@{/books/add}" th:object="${book}" th:method="post">
+    <label>Title:</label>
+    <input type="text" th:field="*{title}">
+    <br>
+
+    <label>Author:</label>
+    <input type="text" th:field="*{author}">
+    <br>
+
+    <label>Genre:</label>
+    <input type="text" th:field="*{genre}">
+    <br>
+
+    <label>Price:</label>
+    <input type="text" th:field="*{price}">
+    <br>
+
+    <label>Available</label>
+    <input type="checkbox" th:field="*{available}">
+
+    <br>
+    <button type="submit">Save changes</button>
+
+</form>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Book</title>
+</head>
+<body>
+<form th:action="@{/books/update/{id}(id=${book.id})}" th:object="${book}" th:method="post">
+  <input type="hidden" th:field="*{id}">
+
+  <label>Title</label>
+  <input type="text" th:field="*{title}">
+
+  <label>Author</label>
+  <input type="text" th:field="*{author}">
+
+  <label>Genre</label>
+  <input type="text" th:field="*{genre}">
+
+  <label>Price</label>
+  <input type="text" th:field="*{price}">
+
+  <label>Available</label>
+  <input type="checkbox" th:fiels="*{available}">
+
+  <button type="submit">Save edit</button>
+</form>
+</body>
+</html>

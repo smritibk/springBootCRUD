@@ -8,14 +8,16 @@ public class BookDTO {
     private Double price;
     private Boolean isAvailable;
 
-    public BookDTO(){}
+    public BookDTO() {
+    }
 
-    public BookDTO(String title, String author, String genre, Double price, Boolean isAvailable){
-        this.title=title;
-        this.genre=genre;
-        this.author=author;
-        this.price=price;
-        this.isAvailable=isAvailable;
+    public BookDTO(Integer id, String title, String author, String genre, Double price, Boolean isAvailable) {
+        this.id=id;
+        this.title = title;
+        this.genre = genre;
+        this.author = author;
+        this.price = price;
+        this.isAvailable = isAvailable;
     }
 
     public Integer getId() {
