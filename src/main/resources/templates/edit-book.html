@@ -1,237 +1,145 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>⚡ Edit Sigma Book ⚡</title>
+    <meta charset="UTF-8">
+    <title>Edit Book</title>
 
   <style>
 
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:Comic Sans MS, cursive;
-    }
-
     body{
+      background:#f4efe6;
+      font-family:Georgia, serif;
+      color:#3e2f1c;
       min-height:100vh;
       display:flex;
       justify-content:center;
       align-items:center;
-
-      background:
-              linear-gradient(
-                      135deg,
-                      #ff00ff,
-                      #00ffff,
-                      #ffff00,
-                      #00ff00,
-                      #ff0000
-              );
-
-      background-size:400% 400%;
-      animation:bgMove 5s infinite alternate;
-      overflow:hidden;
     }
 
-    @keyframes bgMove{
-      from{background-position:left;}
-      to{background-position:right;}
-    }
-
-    .container{
-      width:700px;
-      padding:40px;
-
-      background:rgba(255,255,255,0.15);
-      backdrop-filter:blur(15px);
-
-      border:8px dashed yellow;
-      border-radius:30px;
-
-      box-shadow:
-              0 0 20px hotpink,
-              0 0 40px cyan,
-              0 0 80px yellow;
+    .form-card{
+      width:500px;
+      background:#fffdf9;
+      padding:35px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.08);
+      border:1px solid #e5ddd2;
     }
 
     h1{
-      text-align:center;
-      color:white;
-      font-size:3rem;
-      margin-bottom:30px;
-
-      text-shadow:
-              0 0 10px hotpink,
-              0 0 20px cyan,
-              0 0 40px yellow;
-
-      animation:wiggle 1s infinite alternate;
+      margin-bottom:25px;
+      color:#4a3420;
+      font-weight:normal;
     }
 
-    @keyframes wiggle{
-      from{transform:rotate(-2deg);}
-      to{transform:rotate(2deg);}
-    }
-
-    .field{
-      margin-bottom:20px;
+    .form-group{
+      margin-bottom:18px;
     }
 
     label{
       display:block;
-      margin-bottom:8px;
-      color:white;
-      font-size:1.3rem;
-      font-weight:bold;
+      margin-bottom:6px;
+      font-size:0.95rem;
+      color:#6b4f3a;
     }
 
-    input[type="text"]{
+    input[type="text"],
+    input[type="number"]{
       width:100%;
-      padding:15px;
-
-      border:none;
-      border-radius:15px;
-
-      font-size:1.1rem;
-
-      box-shadow:
-              0 0 10px cyan,
-              0 0 20px hotpink;
+      padding:12px;
+      border:1px solid #d8cfc4;
+      background:#faf8f5;
+      font-size:1rem;
+      font-family:Georgia, serif;
     }
 
-    input[type="text"]:focus{
+    input:focus{
       outline:none;
-
-      box-shadow:
-              0 0 20px yellow,
-              0 0 40px lime;
+      border-color:#6b4f3a;
     }
 
-    .checkbox-wrapper{
+    .checkbox-group{
       display:flex;
       align-items:center;
-      gap:15px;
-      margin:20px 0;
+      gap:10px;
     }
 
-    input[type="checkbox"]{
-      width:30px;
-      height:30px;
-    }
-
-    .submit-btn{
-      width:100%;
-      padding:20px;
-
+    button{
+      background:#6b4f3a;
+      color:white;
       border:none;
-      border-radius:20px;
-
+      padding:12px 20px;
       cursor:pointer;
-
-      font-size:1.5rem;
-      font-weight:bold;
-
-      background:
-              linear-gradient(
-                      90deg,
-                      hotpink,
-                      yellow,
-                      cyan
-              );
-
-      animation:bounce 1s infinite alternate;
-
-      box-shadow:
-              0 0 20px hotpink,
-              0 0 40px cyan;
+      font-size:1rem;
     }
 
-    @keyframes bounce{
-      from{
-        transform:translateY(0);
-      }
-      to{
-        transform:translateY(-8px);
-      }
+    button:hover{
+      background:#5a4230;
     }
 
-    .submit-btn:hover{
-      transform:scale(1.05);
+    .back-link{
+      display:inline-block;
+      margin-top:15px;
+      color:#6b4f3a;
+      text-decoration:none;
     }
 
-    .floating{
-      position:fixed;
-      font-size:50px;
-      animation:float 10s linear infinite;
-      opacity:0.7;
-    }
-
-    @keyframes float{
-      from{
-        transform:translateY(100vh) rotate(0deg);
-      }
-      to{
-        transform:translateY(-150px) rotate(720deg);
-      }
+    .back-link:hover{
+      text-decoration:underline;
     }
 
   </style>
+
+
 </head>
 <body>
 
-<div class="floating" style="left:5%">💀</div>
-<div class="floating" style="left:20%;animation-delay:1s">🔥</div>
-<div class="floating" style="left:35%;animation-delay:2s">🗿</div>
-<div class="floating" style="left:50%;animation-delay:3s">⚡</div>
-<div class="floating" style="left:65%;animation-delay:4s">🚀</div>
-<div class="floating" style="left:80%;animation-delay:5s">💯</div>
+<div class="form-card">
 
-<div class="container">
+  <h1>Edit Book</h1>
 
-  <h1>
-    ⚡ MODIFY SACRED BOOK LORE ⚡
-  </h1>
-
-  <form
-          th:action="@{/books/update/{id}(id=${book.id})}"
-          th:object="${book}"
-          method="post">
+  <form th:action="@{/books/update/{id}(id=${book.id})}"
+        th:object="${book}"
+        method="post">
 
     <input type="hidden" th:field="*{id}">
 
-    <div class="field">
-      <label>📖 Sigma Lore Title</label>
+    <div class="form-group">
+      <label>Title</label>
       <input type="text" th:field="*{title}">
     </div>
 
-    <div class="field">
-      <label>🧠 Aura Author</label>
+    <div class="form-group">
+      <label>Author</label>
       <input type="text" th:field="*{author}">
     </div>
 
-    <div class="field">
-      <label>🎭 Ohio Classification</label>
+    <div class="form-group">
+      <label>Genre</label>
       <input type="text" th:field="*{genre}">
     </div>
 
-    <div class="field">
-      <label>💸 Aura Value</label>
-      <input type="text" th:field="*{price}">
+    <div class="form-group">
+      <label>Price</label>
+      <input type="number"
+             step="0.01"
+             th:field="*{price}">
     </div>
 
-    <div class="checkbox-wrapper">
-      <input type="checkbox" th:field="*{available}">
-      <label>🟢 Maintain W Rizz Stock</label>
+    <div class="checkbox-group">
+      <input type="checkbox"
+             th:field="*{available}">
+      <label>Available in store</label>
     </div>
 
-    <button class="submit-btn" type="submit">
-      ⚡ PATCH THE OHIO DATABASE ⚡
+    <br>
+
+    <button type="submit">
+      Save Changes
     </button>
 
   </form>
 
 </div>
+
 
 </body>
 </html>
