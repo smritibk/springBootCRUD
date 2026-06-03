@@ -4,6 +4,7 @@ import com.nchl.projectcrudoperation.dto.BookDTO;
 import com.nchl.projectcrudoperation.entity.Book;
 import com.nchl.projectcrudoperation.exception.BookNotFoundException;
 import com.nchl.projectcrudoperation.repository.BookRepository;
+import com.nchl.projectcrudoperation.utils.IdEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,10 +18,14 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
+    @Autowired
+    private IdEncoder idEncoder;
+
     //Convert to DTO
     public BookDTO mapToDTO(Book book) {
         return new BookDTO(
                 book.getId(),
+                idEncoder.encode(book.getId()),
                 book.getTitle(),
                 book.getAuthor(),
                 book.getGenre(),
@@ -48,7 +53,10 @@ public class BookService {
     public BookDTO findBookById(Integer id){
         Book existingBook=bookRepository.findById(id).orElseThrow(()->new BookNotFoundException("Book not found"));
         return mapToDTO(existingBook);
+    }
 
+    public Book findBookForUpdate(Integer id){
+        return bookRepository.findById(id).orElseThrow(()->new BookNotFoundException("Book not found"));
     }
 
     public List<BookDTO> findAllBooks() {
@@ -59,7 +67,7 @@ public class BookService {
         for (Book book : listBooks) {
 //            System.out.println(book.getId());
             BookDTO bookDTO = mapToDTO(book);
-            System.out.println(bookDTO.getId());
+//            System.out.println(bookDTO.getId());
             bookDTOList.add(bookDTO);
         }
         return bookDTOList;
@@ -85,6 +93,8 @@ public class BookService {
         existingBook.setAuthor(book.getAuthor());
         existingBook.setGenre(book.getGenre());
         existingBook.setPrice(book.getPrice());
+        existingBook.setPublisher(book.getPublisher());
+        existingBook.setStock(book.getStock());
         existingBook.setAvailable(book.getAvailable());
 
         Book savedBook = bookRepository.save(existingBook);

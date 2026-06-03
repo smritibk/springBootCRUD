@@ -4,6 +4,7 @@ import com.nchl.projectcrudoperation.dto.ApiResponseDTO;
 import com.nchl.projectcrudoperation.dto.BookDTO;
 import com.nchl.projectcrudoperation.entity.Book;
 import com.nchl.projectcrudoperation.service.BookService;
+import com.nchl.projectcrudoperation.utils.IdEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -118,17 +119,22 @@ public class BookController {
 //
 //    }
 
-    @GetMapping("/books/update/{id}")
-    public String editForm(@PathVariable Integer id, Model model){
-        BookDTO existingBookDTO=bookService.findBookById(id);
+    @GetMapping("/books/update/{encodedId}")
+    public String editForm(@PathVariable String encodedId, Model model){
+        Integer id= IdEncoder.decode(encodedId);
+        Book existingBook=bookService.findBookForUpdate(id);
+//        BookDTO existingBookDTO=bookService.findBookById(id);
 
-        model.addAttribute("book", existingBookDTO);
+        model.addAttribute("book", existingBook);
+        model.addAttribute("encodedId", IdEncoder.encode(existingBook.getId()));
         return "edit-book";
     }
 
-    @PostMapping("/books/update/{id}")
-    public String updateBook(@ModelAttribute Book book){
-        bookService.updateBookById(book.getId(), book);
+    @PostMapping("/books/update/{encodedId}")
+    public String updateBook(@PathVariable String encodedId,@ModelAttribute Book book){
+        Integer id=IdEncoder.decode(encodedId);
+        book.setId(id);
+        bookService.updateBookById(id, book);
         return "redirect:/books";
     }
 

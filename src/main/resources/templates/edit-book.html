@@ -96,7 +96,7 @@
 
   <h1>Edit Book</h1>
 
-  <form th:action="@{/books/update/{id}(id=${book.id})}"
+  <form th:action="@{/books/update/{id}(id=${encodedId})}"
         th:object="${book}"
         method="post">
 
@@ -122,6 +122,19 @@
       <input type="number"
              step="0.01"
              th:field="*{price}">
+    </div>
+
+    <div class="form-group">
+      <label>Publisher</label>
+      <input type="text"
+             th:field="*{publisher}">
+    </div>
+
+    <div class="form-group">
+      <label>Stock</label>
+      <input type="number"
+             step="1"
+             th:field="*{stock}">
     </div>
 
     <div class="checkbox-group">

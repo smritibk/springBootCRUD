@@ -116,6 +116,7 @@
             <table class="book-table">
                 <thead>
                 <tr>
+                    <th>S.N</th>
                     <th>Title</th>
                     <th>Author</th>
                     <th>Genre</th>
@@ -129,7 +130,8 @@
 
                 <tbody>
 
-                <tr th:each="book : ${books}">
+                <tr th:each="book,stat : ${books}">
+                    <td th:text = "${stat.count}"></td>
                     <td th:text="${book.title}"></td>
                     <td th:text="${book.author}"></td>
                     <td th:text="${book.genre}"></td>
@@ -149,7 +151,7 @@
 
                     <td>
                         <a class="btn edit-btn"
-                           th:href="@{/books/update/{id}(id=${book.id})}">
+                           th:href="@{/books/update/{id}(id=${book.encodedId})}">
                             Edit
                         </a>
                     </td>
