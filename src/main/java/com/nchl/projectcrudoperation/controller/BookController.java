@@ -62,6 +62,22 @@ public class BookController {
 //        return bookService.findAllBooks();
 //    }
 
+
+    @GetMapping("/")
+    public String entrypoint(Model model) {
+//        String name="The Adventures of Huckleberry Finn";
+//        model.addAttribute("bookName",name );
+
+//        BookDTO bookDTO = new BookDTO(
+//                "The Lord of the Rings", "J.R.R. Tolkein", "fantasy", 600.00, true
+//        );
+        List<BookDTO> bookDTO=bookService.findAllBooks();
+//
+        model.addAttribute("books", bookDTO);
+        return "books";
+    }
+
+
     @GetMapping("/books")
     public String booksPage(Model model) {
 //        String name="The Adventures of Huckleberry Finn";

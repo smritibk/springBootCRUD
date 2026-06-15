@@ -29,7 +29,7 @@ public class SecurityConfig {
                         .requestMatchers("/books/add", "/books/update/**", "/books/delete/**")
                         .hasRole("ADMIN")
                         .anyRequest()
-                        .authenticated()
+                        .permitAll()
         ).formLogin(Customizer.withDefaults());
 
         return httpSecurity.build();
